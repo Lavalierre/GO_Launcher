@@ -40,7 +40,7 @@ namespace GOR_Launcher
             mainForm        = form;
 
             if (!IsVersionPresent())
-                await StartFileValidation();
+                Task.Run(()=> StartFileValidation());
             else
                 IsReady();
 
@@ -233,17 +233,17 @@ namespace GOR_Launcher
             return localVersion == remoteVersion;
         }
 
-        public static async Task StartFileValidation()
+        public static void StartFileValidation()
         {
             mainForm.SetPlayButton(false);
 
-            await ValidateFiles();
+            ValidateFiles();
 
             if (!IsReady())
                 StartDownlaod();
         }
 
-        private static async Task ValidateFiles()
+        private static void ValidateFiles()
         {
             // Cleanup
             deleteFiles.Clear();
@@ -297,8 +297,6 @@ namespace GOR_Launcher
                         deleteFiles.Add(localFileList[i]);
                 }
             }
-
-            await Task.Delay(1);
         }
     }
 }

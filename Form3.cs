@@ -51,7 +51,7 @@ namespace GOR_Launcher
         private async void validateFilesButton_Click(object sender, EventArgs e)
         {
             if (CFileValidation.IsReady())
-                await CFileValidation.StartFileValidation();
+                Task.Run(()=> CFileValidation.StartFileValidation());
 
             await Task.Delay(1);
         }
