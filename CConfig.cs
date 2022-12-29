@@ -66,8 +66,10 @@ namespace GOR_Launcher
             RegistryKey key = Registry.CurrentUser.OpenSubKey("SOFTWARE", true);
             key = key.CreateSubKey("G2O", true);
 
-            string name = key.GetValue("nickname").ToString();
-            name = name == null ? "" : name;
+            string name = "";
+            object regName = key.GetValue("nickname");
+            if (regName != null)
+                name = regName.ToString();
 
             return name;
         }
